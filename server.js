@@ -15,9 +15,16 @@ const server = http.createServer((req, res) => {
 
     // RESPONSE
     if(pathSegments[2]) {
-        const product = catalog.filter(product => product.id === parseInt(pathSegments[2], 10))
-        
-        sendJSONResponse(res, 200, product)
+        const productId = parseInt(pathSegments[2], 10)
+        const product = catalog.filter(product => product.id === productId)
+
+        if(isNaN(productId)) {
+            sendJSONResponse(res, 400, {'error': 'Not a valid product id!'})
+        } else if(product.length === 1) {
+            sendJSONResponse(res, 200, product)
+        } else {
+            sendJSONResponse(res, 404, {'error': 'Product not found!'})
+        }
 
     } else if(!pathSegments[2]) {
 
