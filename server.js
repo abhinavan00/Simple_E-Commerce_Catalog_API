@@ -6,6 +6,7 @@ import { getDataByQueryParams } from './utils/getDataByQueryParams.js';
 const PORT = 5001
 
 const server = http.createServer((req, res) => {
+    // DATA
     const catalog = database()
 
     // URL OBJECT
@@ -21,7 +22,9 @@ const server = http.createServer((req, res) => {
     // RESPONSE
     if(urlObj.pathname === '/api/products' && req.method === 'GET') {
        
-        sendJSONResponse(res, 200, catalog)
+        const filteredData = getDataByQueryParams(catalog, queryObj)
+        
+        sendJSONResponse(res, 200, filteredData)
 
     } else if(pathSegments[2] && req.method === 'GET') {
 
@@ -37,8 +40,6 @@ const server = http.createServer((req, res) => {
         }  
         
     }
-
-    console.log(queryObj)
 
 })
 
