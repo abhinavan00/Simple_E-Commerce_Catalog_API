@@ -24,7 +24,11 @@ const server = http.createServer((req, res) => {
        
         const filteredData = getDataByQueryParams(catalog, queryObj)
         
-        sendJSONResponse(res, 200, filteredData)
+        if(filteredData.length > 0) {
+            sendJSONResponse(res, 200, filteredData)
+        } else {
+            sendJSONResponse(res, 404, {'erorr' : 'No Product Found!'})
+        }
 
     } else if(pathSegments[2] && req.method === 'GET') {
 
