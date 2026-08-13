@@ -1,7 +1,7 @@
 import http from 'node:http';
 import { database } from './database/database.js';
 import { sendJSONResponse } from './utils/sendJSONResponse.js';
-import { type } from 'node:os';
+import { getDataByQueryParams } from './utils/getDataByQueryParams.js';
 
 const PORT = 5001
 
@@ -10,11 +10,21 @@ const server = http.createServer((req, res) => {
 
     // URL OBJECT
     const urlObj = new URL(req.url, `http://${req.headers.host}`)
+
+    // PATH PARAMS
     const pathName = urlObj.pathname
     const pathSegments = pathName.split('/').filter(Boolean)
 
+    // QUERY PARAMS
+    const queryObj = Object.fromEntries(urlObj.searchParams)
+
     // RESPONSE
-    if(pathSegments[2]) {
+    if(urlObj.pathname === '/api/products' && req.method === 'GET') {
+       
+        sendJSONResponse(res, 200, catalog)
+
+    } else if(pathSegments[2] && req.method === 'GET') {
+
         const productId = parseInt(pathSegments[2], 10)
         const product = catalog.filter(product => product.id === productId)
 
@@ -24,13 +34,12 @@ const server = http.createServer((req, res) => {
             sendJSONResponse(res, 200, product)
         } else {
             sendJSONResponse(res, 404, {'error': 'Product not found!'})
-        }
-
-    } else if(!pathSegments[2]) {
-
-        sendJSONResponse(res, 200, catalog)
+        }  
         
     }
+
+    console.log(queryObj)
+
 })
 
 server.listen(PORT, () => console.log(`Server is running on ${PORT}`))

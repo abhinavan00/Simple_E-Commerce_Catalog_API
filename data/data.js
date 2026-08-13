@@ -11,7 +11,7 @@ export const data = [
         name: 'iPhone 17 Pro',
         category: 'smartphone',
         price: 1099,
-        inStock: true
+        inStock: false
     },
     {
         id: 3,
@@ -39,6 +39,6 @@ export const data = [
         name: 'MacBook Pro',
         category: 'laptop',
         price: 1799,
-        inStock: true
+        inStock: false
     },
 ]
