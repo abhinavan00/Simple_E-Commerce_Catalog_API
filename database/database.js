@@ -1,5 +1,5 @@
 import { data } from "../data/data.js";
 
-export function database() {
+export async function database() {
     return data
 }

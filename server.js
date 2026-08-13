@@ -5,9 +5,9 @@ import { getDataByQueryParams } from './utils/getDataByQueryParams.js';
 
 const PORT = 5001
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
     // DATA
-    const catalog = database()
+    const catalog = await database()
 
     // URL OBJECT
     const urlObj = new URL(req.url, `http://${req.headers.host}`)
