@@ -43,6 +43,8 @@ const server = http.createServer((req, res) => {
             sendJSONResponse(res, 404, {'error': 'Product not found!'})
         }  
         
+    } else if (req.method !== 'GET') {
+        sendJSONResponse(res, 405, {'erorr' : 'Method Not Allowed'})
     }
 
 })
