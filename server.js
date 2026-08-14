@@ -33,18 +33,23 @@ const server = http.createServer(async (req, res) => {
     } else if(pathSegments[2] && req.method === 'GET') {
 
         const productId = parseInt(pathSegments[2], 10)
-        const product = catalog.filter(product => product.id === productId)
 
         if(isNaN(productId)) {
             sendJSONResponse(res, 400, {'error': 'Not a valid product id!'})
-        } else if(product.length === 1) {
+        }
+        
+        const product = catalog.filter(product => product.id === productId)
+
+        if(product.length === 1) {
             sendJSONResponse(res, 200, product)
         } else {
             sendJSONResponse(res, 404, {'error': 'Product not found!'})
         }  
         
-    } else if (req.url !== '/api/products' || req.method !== 'GET') {
-        sendJSONResponse(res, 405, {'error' : 'Invalid url OR Wrong Method'})
+    } else if (req.method !== 'GET') {
+        sendJSONResponse(res, 405, {'error' : 'Method Not Allowed!'})
+    } else if (req.url !== '/api/products') {
+        sendJSONResponse(res, 404, {'error' : 'Path not found!'})
     }
 
 })
