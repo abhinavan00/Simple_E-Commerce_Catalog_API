@@ -43,8 +43,8 @@ const server = http.createServer(async (req, res) => {
             sendJSONResponse(res, 404, {'error': 'Product not found!'})
         }  
         
-    } else if (req.method !== 'GET') {
-        sendJSONResponse(res, 405, {'erorr' : 'Method Not Allowed'})
+    } else if (req.url !== '/api/products' || req.method !== 'GET') {
+        sendJSONResponse(res, 405, {'erorr' : 'Invalid url OR Wrong Method'})
     }
 
 })
