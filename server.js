@@ -27,7 +27,7 @@ const server = http.createServer(async (req, res) => {
         if(filteredData.length > 0) {
             sendJSONResponse(res, 200, filteredData)
         } else {
-            sendJSONResponse(res, 404, {'erorr' : 'No Product Found!'})
+            sendJSONResponse(res, 404, {'error' : 'No Product Found!'})
         }
 
     } else if(pathSegments[2] && req.method === 'GET') {
@@ -44,7 +44,7 @@ const server = http.createServer(async (req, res) => {
         }  
         
     } else if (req.url !== '/api/products' || req.method !== 'GET') {
-        sendJSONResponse(res, 405, {'erorr' : 'Invalid url OR Wrong Method'})
+        sendJSONResponse(res, 405, {'error' : 'Invalid url OR Wrong Method'})
     }
 
 })
