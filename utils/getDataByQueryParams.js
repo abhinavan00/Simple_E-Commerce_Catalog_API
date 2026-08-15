@@ -14,9 +14,13 @@ export function getDataByQueryParams(catalog, queryObj) {
     }
 
     if(inStock) {
-        catalog = catalog.filter(product => 
-            product.inStock === JSON.parse(inStock.toLowerCase())
-        )
+        catalog = catalog.filter(product => {
+            if(inStock.toLowerCase() === 'true') {
+                return product.inStock
+            } else {
+                return !product.inStock
+            }
+        })
     }
 
     return catalog

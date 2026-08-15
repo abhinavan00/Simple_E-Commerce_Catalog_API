@@ -47,9 +47,13 @@ const server = http.createServer(async (req, res) => {
         }  
         
     } else if (req.method !== 'GET') {
+
         sendJSONResponse(res, 405, {'error' : 'Method Not Allowed!'})
+
     } else if (req.url !== '/api/products') {
+
         sendJSONResponse(res, 404, {'error' : 'Path not found!'})
+        
     }
 
 })
